@@ -1,0 +1,74 @@
+<html>
+  <head>
+     <title>CTRL Demo</title>
+     <link rel="stylesheet" media="screen" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}">
+
+  </head>
+  <body>
+
+    <div class="container"><br>
+      <center>
+        <h2>CTRL Demo</h2>
+      </center>
+    </div>
+
+    <div class="container"><br>
+    <div class="row align-items-center justify-content-center">
+    <div class="col-md-8">
+      <form  action="" method="post" role="form">
+        {{ form.csrf }}
+        <div class="form-group">
+          <label for="prompt">Prompt:</label>
+          <input type="text" class="form-control" id="prompt" name="prompt" placeholder="Enter a prompt for CTRL">
+          <label for="seed">Seed:</label>
+          <input type="text" class="form-control" id="seed" name="seed" placeholder="Random seed for TensorFlow, numpy and PythonHash">
+          <label for="generate_num">generate_num:</label>
+          <input type="text" class="form-control" id="generate_num" name="generate_num" placeholder="number of tokens to generate">
+          <label for="temperature">temperature:</label>
+          <input type="text" class="form-control" id="temperature" name="temperature" placeholder="temperature for sampling distribution; 0 means greedy">
+          <label for="nucleus">nucleus:</label>
+          <input type="text" class="form-control" id="nucleus" name="nucleus" placeholder="cumulative probability cutoff for nucleus sampling; 0 means no nucleus sampling">
+          <label for="topk">topk:</label>
+          <input type="text" class="form-control" id="topk" name="topk" placeholder="topk value for sampling from the softmax distribution ; 0 means no topk preferred">
+          <label for="penalty">penalty:</label>
+          <input type="text" class="form-control" id="penalty" name="penalty" placeholder="repetition penalty for greedy sampling">
+          <label for="print_once">print_once:</label>
+          <input type="text" class="form-control" id="print_once" name="print_once" placeholder="the completion is printed only at the end; not every word">
+          <label for="topn">topn:</label>
+          <input type="text" class="form-control" id="topn" name="topn" placeholder="print top-n candidates during generations; defaults to 0 which is no printing">
+        </div>
+        <br>													   
+        <center>
+          <button type="submit" class="btn btn-success">Submit</button>
+        </center>
+      </form>
+
+      <br>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+
+              {% for message in messages %}
+                  {% if "Enter a prompt" not in message[1]: %}
+                      <div class="alert alert-info">
+                      <strong>Result:</strong><br> {{ message[1] }}
+                      </div>
+                  {% endif %}
+
+                  {% if "Enter a prompt" in message[1]: %}
+                      <div class="alert alert-danger">
+                      <strong>Error: </strong> {{ message[1] }}
+                      </div>
+                  {% endif %}
+              {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+    </div>
+    <br>
+    </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>
