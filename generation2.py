@@ -26,7 +26,7 @@ import platform
 # penalty       : topk value for sampling from the softmax distribution ; 0 means no topk preferred
 # print_once    : the completion is printed only at the end; not every word
 # topn          : print top-n candidates during generations; defaults to 0 which is no printing
-def generate(model_dir, prompt, random_seed = 1337, generate_num = 256, temperature = 0, nucleus = 0, penalty = 1.2, print_once = False, topn = 0):
+def generate(model_dir, prompt, random_seed = 1337, generate_num = 256, temperature = 0, nucleus = 0, topk = 0, penalty = 1.2, print_once = False, topn = 0):
 
     use_py3 = platform.python_version()[0] == '3'
 
@@ -134,7 +134,7 @@ def generate(model_dir, prompt, random_seed = 1337, generate_num = 256, temperat
 
     nucleusprob = nucleus
     penalty = penalty
-    topk = args.topk
+    topk = topk
 
     # Load the model file
     chkpt_for_reader = '.'.join(args.model_path.split('.')[:-1])
